@@ -47,8 +47,11 @@ namespace Nats{
         PointArray(const Point points[], const int size);
 
         //PointArray(const PointArray& pv); standard
-        PointArray(const PointArray& pv) : PointArray(pv.points, pv.size) {
+        PointArray(const PointArray& pv) : PointArray(pv.points, pv.size) {    
+        }
 
+        ~PointArray(){
+            delete this->points;
         }
 
     };
