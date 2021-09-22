@@ -7,7 +7,6 @@ using namespace std;
 namespace Nats{
 
     class Point{
-
         private:
         int x;
         int y;
@@ -35,6 +34,23 @@ namespace Nats{
         std::string as_string(){
             return "[" + std::to_string(this->x) + ", " + std::to_string(this->y) + "]";
         }
+    };
+
+    class PointArray{
+        private:
+        Point* points;
+        int size;
+    
+        public:
+        PointArray();
+
+        PointArray(const Point points[], const int size);
+
+        //PointArray(const PointArray& pv); standard
+        PointArray(const PointArray& pv) : PointArray(pv.points, pv.size) {
+
+        }
+
     };
 }
 
