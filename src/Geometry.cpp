@@ -13,6 +13,35 @@ Nats::Point::Point(int x, int y){
     this->y = y;
 }
 
+void Nats::PointArray::resize(int n){
+    debug_string("resizing from " + std::to_string(this->size) + " to " + std::to_string(n));
+    if (n < 0){
+        throw std::invalid_argument(std::string("New size is negative! New_size = " + std::to_string(n)));
+    }else{
+        if (n == 0){
+            delete[] this->points;
+            this->points = NULL;
+        }else{
+            /*
+            Point* new_points = new Point[n];
+            for(int i = 0; i < std::min(n, this->size); i++){
+                new_points[i] = this->points[i];
+            }
+            this->points = new_points;
+            this->size = n;
+            delete [] new_points;
+            */
+            Point* old_points = this->points;
+            this->points = new Point[n];
+            for (int i=0; i < std::min(n, this->size); i++){
+                this->points[i] = old_points[i];
+            }
+            this->size = n;
+            delete[] old_points;
+        }
+    }
+}
+
 Nats::PointArray::PointArray(){
     debug_string("PointArray empty constructor");
     this->size = 0;
@@ -49,26 +78,6 @@ Nats::PointArray::PointArray(const PointArray& pv){
 }
 */
 
-void Nats::PointArray::resize(int n){
-    debug_string("resizing from " + std::to_string(this->size) + "to " + std::to_string(n));
-    if (n < 0){
-        throw std::invalid_argument(std::string("New size is negative! New_size = " + std::to_string(n)));
-    }else{
-        if (n == 0){
-            delete[] this->points;
-            this->points = NULL;
-        }else{
-            Point* new_points = new Point[n];
-            for(int i = 0; i < std::min(n, this->size); i++){
-                new_points[i] = this->points[i];
-            }
-            this->points = new_points;
-            this->size = n;
-            delete [] new_points;
-        }
-    }
-}
-
 std::string Nats::PointArray::as_string(){
 
     if(this->size == 0){
@@ -90,6 +99,11 @@ std::string Nats::PointArray::as_string(){
         s += "]";
         return s;
     }
+}
 
-
+void Nats::PointArray::push_back(Point &p){
+    Nats::debug_string("pushing back point: (" + std::to_string(p.get_x()) + ", " + std::to_string(p.get_y()) + ")");
+    int n = this->size + 1;
+    resize(n);
+    this->points[this->size -1] = p;
 }

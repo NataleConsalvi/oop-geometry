@@ -46,6 +46,9 @@ namespace Nats{
         Point* points;
         int size;
     
+        protected:
+        void resize(int n);
+
         public:
         PointArray();
 
@@ -58,9 +61,9 @@ namespace Nats{
 
         ~PointArray();
 
-        void resize(int n);
-
         std::string as_string();
+
+        void push_back(Point &p);
 
     };
 }

@@ -30,7 +30,7 @@ int main ()
     Nats::PointArray pa;
 
     cout << pa.as_string() << endl;
-/*
+
     pa.push_back(p1);   
     cout << pa.as_string() << endl;
 
@@ -40,6 +40,7 @@ int main ()
     pa.push_back(p3);
     cout << pa.as_string() << endl;
 
+/*
     pa.insert(0, p4);
     cout << pa.as_string() << endl;
 
