@@ -26,11 +26,11 @@ int main ()
     Nats::Point p5(15 , 5);
     cout << "p5: " << p5.as_string() << endl;
 
-/*
-    PointArray pa;
+
+    Nats::PointArray pa;
 
     cout << pa.as_string() << endl;
-
+/*
     pa.push_back(p1);   
     cout << pa.as_string() << endl;
 

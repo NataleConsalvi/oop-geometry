@@ -19,6 +19,11 @@ Nats::PointArray::PointArray(){
     this->points = NULL;
 }
 
+Nats::PointArray::~PointArray(){
+    debug_string("PointArray destructor");
+    delete [] this->points;
+}
+
 Nats::PointArray::PointArray(const Point points[], const int size){
     debug_string("PointArray constructor");
     if(size < 0){
@@ -61,4 +66,30 @@ void Nats::PointArray::resize(int n){
             this->size = n;
             delete [] new_points;
         }
+    }
+}
+
+std::string Nats::PointArray::as_string(){
+
+    if(this->size == 0){
+        std::string s;
+        s += "[ empty ]";
+        return s;
+    }else{
+    std::string s;
+    s += "[";
+        for(int i = 0; i < this->size; i++){
+            s += "(";
+            s += to_string(this->points[i].get_x());
+            s += ", ";
+            s += to_string(this->points[i].get_y());
+            s += "), ";
+        }
+        int n = s.size();
+        s.resize(n - 2);
+        s += "]";
+        return s;
+    }
+
+
 }
