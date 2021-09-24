@@ -21,16 +21,7 @@ void Nats::PointArray::resize(int n){
         if (n == 0){
             delete[] this->points;
             this->points = NULL;
-        }else{
-            /*
-            Point* new_points = new Point[n];
-            for(int i = 0; i < std::min(n, this->size); i++){
-                new_points[i] = this->points[i];
-            }
-            this->points = new_points;
-            this->size = n;
-            delete [] new_points;
-            */
+        }else{          
             Point* old_points = this->points;
             this->points = new Point[n];
             for (int i=0; i < std::min(n, this->size); i++){
