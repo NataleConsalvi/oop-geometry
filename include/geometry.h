@@ -4,7 +4,12 @@
 #include <stdexcept>
 #include <string>
 using namespace std;
+
+
+
 namespace Nats{
+    
+    void debug_string(std::string s);
 
     class Point{
         private:
@@ -47,11 +52,35 @@ namespace Nats{
         PointArray(const Point points[], const int size);
 
         //PointArray(const PointArray& pv); standard
-        PointArray(const PointArray& pv) : PointArray(pv.points, pv.size) {    
+        PointArray(const PointArray& pv) : PointArray(pv.points, pv.size) {
+            debug_string("PointArray copy constructor");   
         }
 
         ~PointArray(){
-            delete this->points;
+            debug_string("PointArray destructor");
+            delete [] this->points;
+        }
+
+        void resize(int n){
+
+            debug_string("resizing from " + std::to_string(this->size) + "to " + std::to_string(n));
+            if (n < 0){
+                throw std::invalid_argument(std::string("New size is negative! New_size = " + std::to_string(n)));
+            }else{
+                if (n == 0){
+                    delete[] this->points;
+                    this->points = NULL;
+                }else{
+                    Point* new_points = new Point[n];
+                    for(int i = 0; i < std::min(n, this->size); i++){
+                        new_points[i] = this->points[i];
+                    }
+                    this->points = new_points;
+                    this->size = n;
+                    delete [] new_points;
+                }
+            }
+
         }
 
     };
