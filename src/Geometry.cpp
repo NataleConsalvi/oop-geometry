@@ -8,7 +8,7 @@ void Nats::debug_string(std::string s){
 }
 
 Nats::Point::Point(int x, int y){
-    debug_string("point constructor");
+    //debug_string("point constructor");
     this->x = x;
     this->y = y;
 }
@@ -47,7 +47,7 @@ Nats::PointArray::~PointArray(){
 Nats::PointArray::PointArray(const Point points[], const int size){
     debug_string("PointArray constructor");
     if(size < 0){
-        throw std::invalid_argument(std::string("Size is null or negative! Size = " + std::to_string(size)));
+        throw std::invalid_argument(std::string("Size is negative! Size = " + std::to_string(size)));
     }else{
         this->size = size;
         this->points = new Point [size];
@@ -94,7 +94,23 @@ std::string Nats::PointArray::as_string(){
 
 void Nats::PointArray::push_back(Point &p){
     Nats::debug_string("pushing back point: (" + std::to_string(p.get_x()) + ", " + std::to_string(p.get_y()) + ")");
-    int n = this->size + 1;
-    resize(n);
+    resize(this->size + 1);
     this->points[this->size -1] = p;
+}
+
+void Nats::PointArray::insert(int pos, Point &p){
+    Nats::debug_string("inserting point (" + std::to_string(p.get_x()) + ", " + std::to_string(p.get_y()) + ")" + " at position " + std::to_string(pos));
+    if(pos < 0){
+        throw std::invalid_argument(string("Pos is negative! Pos = " + std::to_string(pos)));
+    }else{
+        if(pos > this->size){
+            throw std::invalid_argument(string("Pos is greater than size! Pos = " + std::to_string(pos) + " > " + std::to_string(this->size)));
+        }else{
+            resize(this->size + 1);
+            for(int i = size - 1; i > pos - 1; i--){
+                this->points[i + 1] = this->points[i];
+            }
+            this->points[pos] = p;
+        }
+    }    
 }

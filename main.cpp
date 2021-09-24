@@ -40,27 +40,28 @@ int main ()
     pa.push_back(p3);
     cout << pa.as_string() << endl;
 
-/*
+
     pa.insert(0, p4);
     cout << pa.as_string() << endl;
 
     pa.insert(4, p5);
     cout << pa.as_string() << endl;
-
+/*
     try {
         pa.insert(-1, p5);
     } catch (std::invalid_argument& ex) {
         cout << "something bad happened!" << ex.what() << endl;
         cout << "I caught the exception, will continue" << endl;
     };
-
+    
     try {
         pa.insert(6, p5);
     } catch (std::invalid_argument& ex) {
         cout << "something bad happened!" << ex.what() << endl;
         cout << "I caught the exception, will continue" << endl;
     };
-
+*/
+/*
     pa.remove(0);
     cout << pa.as_string() << endl;
 

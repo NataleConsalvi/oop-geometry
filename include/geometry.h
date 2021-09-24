@@ -65,6 +65,8 @@ namespace Nats{
 
         void push_back(Point &p);
 
+        void insert(int pos, Point &p);
+
     };
 }
 
