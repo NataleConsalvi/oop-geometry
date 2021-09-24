@@ -14,12 +14,17 @@ Nats::PointArray::PointArray(){
 }
 
 Nats::PointArray::PointArray(const Point points[], const int size){
-    this->size = size;
-    this->points = new Point [size];
+    if(size < 0){
+        throw std::invalid_argument(std::string("Size is null or negative! Size = " + std::to_string(size)));
+    }else{
+        this->size = size;
+        this->points = new Point [size];
 
-    for(int i = 0; i < size; i++){
-        this->points[i] = points[i];
+        for(int i = 0; i < size; i++){
+            this->points[i] = points[i];
+        }
     }
+
             
     //add controlli size
 }
